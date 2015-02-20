@@ -89,3 +89,15 @@ RSpec.configure do |config|
 end
 
 require 'pry'
+require 'base64'
+
+# Temp solution until I can find a small iso to just include in the source
+def download_iso(url)
+  FileUtils.mkdir_p('./tmp')
+  filename = "./tmp/#{Base64.encode64(url)}"
+  return filename if File.exist?(filename)
+
+  File.open(filename, 'wb') {|f| f.puts(open(url).read) }
+
+  filename
+end
