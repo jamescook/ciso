@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'bundler'
+Bundler.load
+require_relative '../lib/ciso.rb'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: ciso_decompress [options]"
+
+  opts.on("-I", "--input=FILE", "Set input file") do |file|
+    options[:input_file] = file
+  end
+
+  opts.on("-O", "--output=FILE", "Set output file") do |file|
+    options[:output_file] = file
+  end
+end.parse!
+
+raise ArgumentError, "Specify input file" if options[:input_file].nil?
+raise ArgumentError, "Specify output file" if options[:output_file].nil?
+
+CISO::Inflate.new(options[:input_file], options[:output_file]).inflate

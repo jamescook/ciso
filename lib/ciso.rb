@@ -145,7 +145,7 @@ module CISO
 
       z = Zlib::Deflate.new(6, CISO_WBITS) # 6 is compression level
       compressed_data = StringIO.new
-      compressed_data << z.deflate(raw_data, Zlib::FINISH)[2..-1]
+      compressed_data << z.deflate(raw_data, Zlib::FINISH)
       compressed_data_size = compressed_data.size
 
       if compressed_data_size >= raw_data_size
