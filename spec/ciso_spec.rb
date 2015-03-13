@@ -1,10 +1,20 @@
 require_relative '../lib/ciso.rb'
-require 'open-uri'
 
 describe CISO do
+  describe "decompression" do
+    subject { CISO::Inflate.new('./spec/fixtures/memtest.ciso') }
+
+    before do
+      subject.inflate
+    end
+
+    it "can decompress an iso" do
+      expect(subject).to be_decompressed
+    end
+  end
+
   describe "compression" do
-    # TODO Write this out to a file after the first fetch
-    subject { CISO::Deflate.new(download_iso('http://www.memtest.org/download/5.01/memtest86+-5.01.iso.gz')) }
+    subject { CISO::Deflate.new('./spec/fixtures/memtest.iso') }
 
     before do
       subject.deflate
