@@ -13,12 +13,12 @@ module CISO
       @output_file ||= if @output_file_path.is_a?(StringIO) # For testing
         @output_file_path
       else
-        File.open(@output_file_path, 'wb')
+        File.open(File.expand_path(@output_file_path), 'wb')
       end
     end
 
     def input_file
-      @input_file ||= File.open(@input_file_path, 'rb')
+      @input_file ||= File.open(File.expand_path(@input_file_path), 'rb')
     end
 
     def plain_block?(block)
